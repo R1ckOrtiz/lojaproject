@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %} Meu Carrinho {% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <h4>Itens do Carrinho</h4>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Produto</th>
+                        <th>Avaliação</th>
+                        <th>Quantidade</th>
+                        <th>Subtotal</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cp in carro.carroproduto_set.all %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ cp.produto.titulo }}</td>
+                        <td>{{ cp.avaliacao }}</td>
+                        <td>{{ cp.quantidade }}</td>
+                        <td>R$ {{ cp.subtotal }}</td>
+                        <td>
+                            <a href="{% url 'lojaapp:manipularcarro' cp.id %}?acao=inc" class="btn btn-success btn-sm" title="Adicionar">+</a>
+                            <a href="{% url 'lojaapp:manipularcarro' cp.id %}?acao=dcr" class="btn btn-warning btn-sm" title="Reduzir">-</a>
+                            <a href="{% url 'lojaapp:manipularcarro' cp.id %}?acao=rmv" class="btn btn-danger btn-sm" title="Remover"> x</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <th colspan="4" class="text-right">Total do Carrinho</th>
+                        <th>R$ - {{ carro.total }}</th>
+                        {% if carro.carroproduto_set.all %}
+                        <th><a href="{% url 'lojaapp:limparcarro'%}" class= "btn-sm btn-warning">Limpar Carrinho</a>
+                        {% endif %}
+                        </tr>
+                        {% if carro.carroproduto_set.all %}
+                        <tr>    
+                            <th><a href="{% url 'lojaapp:checkout'%}" class= "btn-sm btn-info">Processar Compra</a>
+                        </tr>
+                        {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

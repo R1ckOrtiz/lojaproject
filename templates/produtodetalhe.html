@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}{{produto.titulo}}{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+   <h4>Produto: {{produto.titulo}}</h4><hr>
+<div class="row">
+   <div class="col-md-6">
+      <img src="{{produto.image.url}}" alt="" class="img-fluid" width="350px">
+   </div>
+   <div class="col-md-6 text-left">
+      <h3>{{produto.titulo}}({{produto.visualizacao}} Visualizações)</h3>
+      <h4>Categoria:{{produto.categoria}}</h4>
+      <h5>Preco: <s>R$. {{produto.preco_mercado}}</s> R$ .{{produto.venda}}</h5>
+      <a href="{%url 'lojaapp:addcarro' produto.id%}" class="btn btn-sucess">Comprar</a><hr>
+      <p class="text-danger">Garantia: {{produto.garantia}}</p>
+      <p class="text-danger">Politica Devolucao : {{produto.return_devolucao}}</p><hr>
+      <p class="text-sucess">{{produto.descricao}}</p>
+   </div>
+</div>
+</div>
+{% endblock %}

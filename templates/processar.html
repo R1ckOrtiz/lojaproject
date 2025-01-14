@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}Processar Compra{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+           <h3>Itens do Carrinho</h3>
+           <a href="{% url 'lojaapp:meucarro' %}" class="btn-sm btn-warning">Atualizar Carrinho</a>
+           <table class="table">
+               <thead>
+                   <tr>
+                       <th>Código</th>
+                       <th>Produto</th>
+                       <th>Avaliação</th>
+                       <th>Quantidade</th>
+                       <th>Subtotal</th>
+                       <th>Ação</th>
+                   </tr>
+               </thead>
+               <tbody>
+                   {% for cp in carro.carroproduto_set.all %}
+                   <tr>
+                       <td>{{ forloop.counter }}</td>
+                       <td>{{ cp.produto.titulo }}</td>
+                       <td>{{ cp.avaliacao }}</td>
+                       <td>{{ cp.quantidade }}</td>
+                       <td>R$ {{ cp.subtotal }}</td>
+                   </tr>
+                   {% endfor %}
+               </tbody>
+               <tfoot>
+                   <tr>
+                       <th colspan="4" class="text-right">Valor Total</th>
+                       <th>R$ {{ carro.total }}</th>
+                   </tr>
+               </tfoot>
+           </table>
+        </div>
+        <div class="col-md-6">
+            <h3>Detalhes da Compra</h3>
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn-sm btn-info">Comprar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
