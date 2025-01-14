@@ -16,7 +16,7 @@
 
     {% if request.user.cliente %}
     Seja bem vindo {{request.user.username}} !
-
+    <a href="{% url 'lojaapp:clienteperfil' %}">MEU PERFIL</a>
     <a href="{% url 'lojaapp:clientesair' %}">SAIR</a>
 
     {% else %}

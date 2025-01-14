@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 
 class Cliente(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE,)
     nome_completo = models.CharField(max_length=200)
     endereco = models.CharField(max_length=200, null=True, blank=True)
     data_on = models.DateField(auto_now_add=True)

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %} Cadastrar Clientes {% endblock %}
+{% block title %} Entrar {% endblock %}
 
 {% block content %}
 <style>
@@ -23,7 +23,7 @@
 
                 {% endif %}
             </form>
-            <p> Se você ainda não é cadastrado? Clique aqui! <a heref= "{%url 'lojaapp:clienteregistrar'%}">Cadastrar</a></p>
+            <p> Se você ainda não é cadastrado? Cadastra-se<a heref= "{%url 'lojaapp:clienteregistrar'%}{% if request.GET.next%}?next={{request.GET.next}}{% endif %}">Cadastrar</a></p>
         </div>
     </div>
 </div>

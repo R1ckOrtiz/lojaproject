@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %} Perfil{% endblock %}
+
+{% block content %}
+<style>
+    .errolist{
+        color: red;
+        list-style: none;
+    }
+</style>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+        <h3>Detalhes Do Cliente:</h3>
+        <p><span class="font-weight-bold">Nome:</span>{{cliente.nome_completo}}</p>
+        <p><span class="font-weight-bold">Usuario:</span>{{cliente.user.username}}</p>
+        <p><span class="font-weight-bold">Email:</span>{{cliente.user.email}}</p>
+        <p><span class="font-weight-bold">Endereco:</span>{{cliente.user.endereco}}</p>
+        <p><span class="font-weight-bold">Cadastrado Em::</span>{{cliente.data_on}}</p>
+
+        </div>
+        <div class="col-md-8">
+            <br>
+            <h3>Detalhes Das Compras Anteriores</h3>
+            <br>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Pedido</th>
+                        <th>Valor</th>
+                        <th>Data Pedido</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pedido in pedidos %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>Pedido_Numero_{{forloop.id}}</td>
+                        <td>{{forloop.total}}</td>
+                        <td>{{forloop.criado_em}} Atras</td>
+                        <td>{{forloop.pedido_status}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+</div>
+{% endblock %}
