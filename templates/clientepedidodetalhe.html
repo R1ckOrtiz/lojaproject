@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block title %}Detalhes Do Pedido {% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 max-auto">
+             <h3>Detalhes Do Pedido</h3>
+             <hr>
+             <p><span class="font-weight-bold"></span><samp>Produto ID:  </samp><samp>Pedido_{{pedido_obj.id}}</p></samp>
+             <p><span class="font-weight-bold"></span><samp>Status do pedido:  </samp><samp>{{pedido_obj.pedido_status}}</p></samp>
+             <p><span class="font-weight-bold"></span><samp>Data Efetuado:  </samp><samp>{{pedido_obj.criado_em}}</p></samp>
+             <p><span class="font-weight-bold"></span><samp>Informacao Cliente:  </samp><samp>{{pedido_obj.ordenando_por}}</p></samp>
+             <p><span class="font-weight-bold"></span><samp>Telefone Cliente:  </samp><samp>{{pedido_obj.Telefone}}</p></samp>
+             <p><span class="font-weight-bold"></span><samp>Email Cliente:  </samp><samp>{{pedido_obj.endereco_envio}}</p></samp>
+             <hr>
+             <h4>Items Do Pedido</h4>
+             <table class="table">
+                <thead>
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Item</th>
+                        <th>Avaliacao</th>
+                        <th>Quantidade</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cp in pedido_obj.carro.carroproduto_set.all %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td><a target="blank" href="{% url 'lojaapp:produtodetalhe' cp.produto.slug%}"{{cp.produto.title}}{{cp.produto.id}}></a></td>
+                        <td>{{cp.avalicao}}</td>
+                        <td>{{cp.quantidade}}</td>
+                        <td>{{cp.subtotal}}</td>
+                    </tr>
+
+                    {% endfor %}
+                    <tr>
+                    <th colspan ="4" class="text-right">Valor Total:</th>
+                    <th>  R$ {{pedido_obj.total|intcomma}}</th>
+                 </tr>
+                </tbody>
+             </table>
+        </div>
+    </div>
+
+
+{% endblock %}

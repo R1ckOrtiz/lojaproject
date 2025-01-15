@@ -34,13 +34,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for pedido in pedidos %}
+                    {% for pedidos in pedidos %}
                     <tr>
                         <td>{{forloop.counter}}</td>
-                        <td>Pedido_Numero_{{forloop.id}}</td>
-                        <td>{{forloop.total}}</td>
-                        <td>{{forloop.criado_em}} Atras</td>
-                        <td>{{forloop.pedido_status}}</td>
+
+
+                        <td><a href="{% url 'lojaapp:clientepedidodetalhe'  pedidos.pk %}">Pedido_Numero_{{pedidos.id}}</td></a>
+                        <td>{{pedidos.total}}</td>
+                        <td>{{pedidos.criado_em}} Atras</td>
+                        <td>{{pedidos.pedido_status}}</td>
+                        
                     </tr>
                     {% endfor %}
                 </tbody>

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic import View, TemplateView, CreateView, FormView
+from django.views.generic import View, TemplateView, CreateView, FormView,DetailView
 from django.urls import reverse_lazy
 from .forms import Checar_PedidoForm, ClienteRegistrarForm, ClienteEntrarForm
 from .models import *
@@ -254,6 +254,31 @@ class ClientePerfilView(TemplateView):
         cliente = self.request.user.cliente
         context['cliente'] = cliente
 
-        Pedidos = Pedido_order.objects.filter(carro__cliente=cliente)
+        Pedidos = Pedido_order.objects.filter(carro__cliente=cliente).order_by("-id")
         context['pedidos'] = Pedidos
         return context
+    
+
+class ClientePedidoDetalheView(DetailView):
+    template_name = "clientepedidodetalhe.html"
+    model = Pedido_order
+    context_object_name = "pedido_obj"
+    def dispatch(self, request, *args, **kwargs):
+        if super().dispatch(request, *args, **kwargs):
+            order_id = self.kwargs["pk"]
+            pedido=Pedido_order.objects.get(id=order_id)
+            if request.user.cliente != pedido.carro.cliente:
+                return redirect("lojaapp:clienteperfil")
+        else:
+            return redirect("/entrar/?next=/perfil/")
+        return super().dispatch(request, *args, **kwargs)
+
+
+# classe do admin
+class AdminLoginView(FormView):
+    template_name = "admin_paginas/adminlogin.html"
+    form_class = ClienteEntrarForm
+    success_url = reverse_lazy("lojaapp:adminhome")
+
+class AdminHomeView(TemplateView):
+    template_name = "admin_paginas/adminhome.html"
