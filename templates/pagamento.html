@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento com Khalti</title>
+    <script src="https://khalti.com/static/khalti-checkout.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .payment-container {
+            margin-top: 50px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #5a00e0;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #4500b8;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pagamento com Khalti</h1>
+    <p>Clique no botão abaixo para efetuar o pagamento.</p>
+
+    <div class="payment-container">
+        <button id="payment-button">Pagar com Khalti</button>
+    </div>
+
+    <script>
+        
+        const khaltiConfig = {
+            "publicKey": "test_public_key_xxxxxx", 
+            "productIdentity": "1234567890",
+            "productName": "Produto Exemplo",
+            "productUrl": "http://example.com/product",
+            "eventHandler": {
+                onSuccess(payload) {
+
+                    console.log("Pagamento bem-sucedido", payload);
+                    alert("Pagamento realizado com sucesso!");
+                },
+                onError(error) {
+                    console.error("Erro no pagamento", error);
+                    alert("Ocorreu um erro no pagamento. Tente novamente.");
+                },
+                onClose() {
+                    console.log("Janela de pagamento fechada.");
+                }
+            }
+        };
+
+        const khaltiCheckout = new KhaltiCheckout(khaltiConfig);
+
+        document.getElementById("payment-button").addEventListener("click", () => {
+            khaltiCheckout.show({
+                amount: 1000 
+            });
+        });
+    </script>
+</body>
+</html>

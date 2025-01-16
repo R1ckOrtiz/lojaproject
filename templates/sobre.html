@@ -1,8 +1,89 @@
 {% extends 'base.html' %}
-{% block title%}Sobre{% endblock %}
+{% block title %}Sobre Nós{% endblock %}
+
 {% block content %}
+<div class="container my-5">
+    <div class="row align-items-center bg-primary text-white p-5 rounded shadow-lg">
+        <div class="col-md-6">
+            <h1 class="display-4 font-weight-bold">Quem Somos</h1>
+            <p class="lead">
+                Somos apaixonados por entregar qualidade, inovação e uma experiência única para nossos clientes.
+                Desde o início, nosso foco sempre foi você!
+            </p>
+            <a href="#historia" class="btn btn-outline-light btn-lg mt-3">Nossa História</a>
+        </div>
+        <div class="col-md-6 text-center">
+        </div>
+    </div>
+    
 
-<h1>SEJA BEM VINDO A PAGINA SOBRE</h1>
+    <!-- Linha do Tempo -->
+    <div id="historia" class="mt-5">
+        <h2 class="text-center text-primary font-weight-bold">Nossa Jornada</h2>
+        <p class="text-center text-muted">
+            Uma história de dedicação e inovação. Confira nossos marcos importantes.
+        </p>
+        <div class="timeline mt-4">
+            <div class="timeline-item" data-aos="zoom-in">
+                <h4 class="text-primary">2023</h4>
+                <p>Fundação da nossa loja com foco em qualidade e confiança.</p>
+            </div>
+            <div class="timeline-item" data-aos="zoom-in" data-aos-delay="100">
+                <h4 class="text-success">2024</h4>
+                <p>Primeira grande expansão, atingindo novos mercados.</p>
+            </div>
+            <div class="timeline-item" data-aos="zoom-in" data-aos-delay="200">
+                <h4 class="text-warning">2025</h4>
+                <p>Alcançamos 1 milhão de clientes satisfeitos!</p>
+            </div>
+        </div>
+    </div>
 
+    <!-- Missão, Visão e Valores -->
+    <div class="row mt-5">
+        <div class="col-md-4 text-center" data-aos="flip-left">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="text-primary">Nossa Missão</h5>
+                    <p>Oferecer produtos de alta qualidade e criar experiências memoráveis.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 text-center" data-aos="flip-left" data-aos-delay="100">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="text-success">Nossa Visão</h5>
+                    <p>Ser referência em excelência no setor de e-commerce.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 text-center" data-aos="flip-left" data-aos-delay="200">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="text-warning">Nossos Valores</h5>
+                    <p>Confiança, inovação, respeito e transparência.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- Seção de Contato -->
+    <div class="row mt-5 bg-dark text-white p-4 rounded shadow-lg">
+        <div class="col-md-12 text-center" data-aos="fade-up">
+            <h3>Entre em Contato</h3>
+            <p>Tem dúvidas? Estamos aqui para ajudar!</p>
+            <a href="/contato/" class="btn btn-outline-light btn-lg mt-3">Fale Conosco</a>
+        </div>
+    </div>
+</div>
+
+<!-- Adicione scripts para animação -->
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 1000, // Duração da animação
+        once: true, // Animação ocorre apenas uma vez
+    });
+</script>
 {% endblock %}

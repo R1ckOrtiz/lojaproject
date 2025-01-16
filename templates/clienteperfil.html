@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
-{% block title %} Perfil{% endblock %}
+{% block title %}Perfil{% endblock %}
 
 {% block content %}
 <style>
-    .errolist{
+    .errolist {
         color: red;
         list-style: none;
     }
@@ -11,45 +11,47 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-8">
-        <h3>Detalhes Do Cliente:</h3>
-        <p><span class="font-weight-bold">Nome:</span>{{cliente.nome_completo}}</p>
-        <p><span class="font-weight-bold">Usuario:</span>{{cliente.user.username}}</p>
-        <p><span class="font-weight-bold">Email:</span>{{cliente.user.email}}</p>
-        <p><span class="font-weight-bold">Endereco:</span>{{cliente.user.endereco}}</p>
-        <p><span class="font-weight-bold">Cadastrado Em::</span>{{cliente.data_on}}</p>
-
+            <h3>Detalhes do Cliente:</h3>
+            <p><span class="font-weight-bold">Nome:</span> {{ cliente.nome_completo }}</p>
+            <p><span class="font-weight-bold">Usuário:</span> {{ cliente.user.username }}</p>
+            <p><span class="font-weight-bold">Email:</span> {{ cliente.user.email }}</p>
+            <p><span class="font-weight-bold">Endereço:</span> {{ cliente.user.endereco }}</p>
+            <p><span class="font-weight-bold">Cadastrado em:</span> {{ cliente.data_on }}</p>
         </div>
         <div class="col-md-8">
             <br>
-            <h3>Detalhes Das Compras Anteriores</h3>
+            <h3>Detalhes das Compras Anteriores</h3>
             <br>
-            <table>
+            <table class="table table-striped table-responsive">
                 <thead>
                     <tr>
-                        <th>Codigo</th>
+                        <th>Código</th>
                         <th>Pedido</th>
                         <th>Valor</th>
-                        <th>Data Pedido</th>
+                        <th>Data do Pedido</th>
                         <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for pedidos in pedidos %}
+                    {% for pedido in pedidos %}
                     <tr>
-                        <td>{{forloop.counter}}</td>
-
-
-                        <td><a href="{% url 'lojaapp:clientepedidodetalhe'  pedidos.pk %}">Pedido_Numero_{{pedidos.id}}</td></a>
-                        <td>{{pedidos.total}}</td>
-                        <td>{{pedidos.criado_em}} Atras</td>
-                        <td>{{pedidos.pedido_status}}</td>
-                        
+                        <td>{{ forloop.counter }}</td>
+                        <td>
+                            <a href="{% url 'lojaapp:clientepedidodetalhe' pedido.pk %}">
+                                Pedido_Numero_{{ pedido.id }}
+                            </a>
+                        </td>
+                        <td>{{ pedido.total }}</td>
+                        <td>{{ pedido.criado_em }}</td>
+                        <td>{{ pedido.pedido_status }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center">Nenhum pedido encontrado.</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
-
-
         </div>
     </div>
 </div>

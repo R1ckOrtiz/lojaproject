@@ -1,0 +1,79 @@
+{% extends 'admin_paginas/adminbase.html' %}
+{% block title %}Detalhes do Pedido{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h3 class="mb-0">Detalhes do Pedido</h3>
+                </div>
+                <div class="card-body">
+                    <div class="mb-4">
+                        <h5 class="text-secondary">Informações do Pedido</h5>
+                        <hr>
+                        <p><strong>ID do Pedido:</strong> {{ pedido_obj.id }}</p>
+                        <p><strong>Status do Pedido:</strong> 
+                            <span class="badge badge-info">{{ pedido_obj.pedido_status }}</span>
+                        </p>
+                        <p><strong>Data Efetuada:</strong> {{ pedido_obj.criado_em|date:"d/m/Y H:i" }}</p>
+                        <p><strong>Nome do Cliente:</strong> {{ pedido_obj.ordenando_por }}</p>
+                        <p><strong>Telefone:</strong> {{ pedido_obj.telefone }}</p>
+                        <p><strong>Email:</strong> {{ pedido_obj.endereco_envio }}</p>
+                    </div>
+                    
+                    <h5 class="text-secondary">Itens do Pedido</h5>
+                    <hr>
+                    <table class="table table-striped table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Item</th>
+                                <th>Avaliação</th>
+                                <th>Quantidade</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for cp in pedido_obj.carro.carroproduto_set.all %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>
+                                    <a target="_blank" href="{% url 'lojaapp:produtodetalhe' cp.produto.slug %}">
+                                        {{ cp.produto.title }} ({{ cp.produto.id }})
+                                    </a>
+                                </td>
+                                <td>{{ cp.avaliacao }}</td>
+                                <td>{{ cp.quantidade }}</td>
+                                <td>R$ {{ cp.subtotal|intcomma }}</td>
+                            </tr>
+                            {% endfor %}
+                            <tr>
+                                <th colspan="4" class="text-right">Valor Total:</th>
+                                <th>R$ {{ pedido_obj.total|intcomma }}</th>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <form action="{% url 'lojaapp:adminpedidomudar' pedido_obj.id %}" method="post" class="mt-4">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="status"><strong>Alterar Status:</strong></label>
+                            <select id="status" name="status" class="form-control custom-select">
+                                {% for i, j in todosstatus %}
+                                <option value="{{ i }}" {% if i == pedido_obj.pedido_status %}selected{% endif %}>{{ j }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-block">Salvar Alteração</button>
+                    </form>
+                </div>
+                <div class="card-footer text-center bg-light">
+                    <a href="{% url 'lojaapp:adminpedidolista' %}" class="btn btn-secondary">Voltar para Lista de Pedidos</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

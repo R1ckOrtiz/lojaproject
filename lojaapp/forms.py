@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 class Checar_PedidoForm(forms.ModelForm):
     class Meta:
         model = Pedido_order
-        fields = ["ordenando_por", "endereco_envio", "telefone", "email"]
+        fields = ["ordenando_por", "endereco_envio", "telefone", "email","pagamento_method"]
 
 
 class ClienteRegistrarForm(forms.ModelForm):

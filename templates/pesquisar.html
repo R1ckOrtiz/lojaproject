@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Pesquisar Produtos{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>RESULTADO DA SUA PESQUISA: <span class="text-success">"{{request.GET.keyword}}"</h3>
+                <hr>
+
+                {% for result in results %}
+                <div class="row">
+                    <div class="col">
+                        <div class="col-md-4">
+                            <img src="{{result.image.url}}" class="img-fluid" alt="">
+                        </div>
+
+                        <div class="col-md-8">
+                            <h4><a href="{% url 'lojaapp:produtodetalhe' result.slug %}">{{result.titulo}}</a></h4>
+                            <p>{{result.descricao|truncatewords:50}}</p>
+                            <p>Politica Devolucao:{{result.descricao}}</p>
+                            <a href="{% url 'lojaapp:addcarro' result.id %}" class="btn btn-success">Comprar</a>
+
+                        </div>
+
+                    </div>
+                    {% endfor %}
+                </div>
+           
+        </div>
+
+
+        </div>
+    </div>
+</div>
+{% endblock %}

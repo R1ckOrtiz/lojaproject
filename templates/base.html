@@ -3,32 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title%} {% endblock %}</title>
+    <title>{% block title %} {% endblock %}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .navbar-nav .nav-item .nav-link {
+            font-weight: bold;
+        }
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+        .search-bar input {
+            margin-right: 5px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-3">
-    <a href="{% url 'lojaapp:home' %}">HOME</a> |
-    <a href="{% url 'lojaapp:sobre' %}">SOBRE</a> |
-    <a href="{% url 'lojaapp:contato' %}">CONTATO</a> |
-    <a href="{% url 'lojaapp:TodosProdutos' %}">CATEGORIA</a> |
-    <a href="{% url 'lojaapp:meucarro' %}">CARRINHO</a> |
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'lojaapp:home' %}">Django Store</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'lojaapp:home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'lojaapp:sobre' %}">Sobre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'lojaapp:contato' %}">Contato</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'lojaapp:TodosProdutos' %}">Categoria</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'lojaapp:meucarro' %}">Carrinho</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    {% if request.user.cliente %}
+                        <li class="nav-item">
+                            <span class="navbar-text">Bem-vindo, {{ request.user.username }}!</span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'lojaapp:clienteperfil' %}">Meu Perfil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'lojaapp:clientesair' %}">Sair</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'lojaapp:clienteregistrar' %}">Cadastrar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'lojaapp:clienteentrar' %}">Entrar</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item search-bar">
+                        <form class="form-inline" action="{% url 'lojaapp:pesquisar' %}" method="GET">
+                            <input class="form-control" type="text" name="keyword" placeholder="Pesquisar Produtos" required>
+                            <button class="btn btn-success ml-2" type="submit">Pesquisar</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-    {% if request.user.cliente %}
-    Seja bem vindo {{request.user.username}} !
-    <a href="{% url 'lojaapp:clienteperfil' %}">MEU PERFIL</a>
-    <a href="{% url 'lojaapp:clientesair' %}">SAIR</a>
-
-    {% else %}
-    <a href="{% url 'lojaapp:clienteregistrar' %}">CADASTRAR CLIENTE</a> |
-    <a href="{% url 'lojaapp:clienteentrar' %}">ENTRAR</a>
-    {% endif %}
+    <div class="container mt-4">
+        {% block content %}
+        {% endblock %}
     </div>
-    <hr>
 
-    {% block content %}
-
-    {% endblock %}
-   
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

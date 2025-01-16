@@ -15,10 +15,19 @@ urlpatterns = [
   path('limpar-carro/', LimparCarroView.as_view(), name="limparcarro"),
   path('checkout/', CheckoutView.as_view(), name="checkout"),
   path('registrar/', ClienteRegistrarView.as_view(), name="clienteregistrar"),
+  path('pagamento/', PagamentoView.as_view(), name="pagamento"),
+
+
   path('sair/', ClienteSairView.as_view(), name="clientesair"),
   path('entrar/', ClienteEntrarView.as_view(), name="clienteentrar"),
   path('perfil/', ClientePerfilView.as_view(), name="clienteperfil"),
   path('perfil/pedido-<int:pk>/', ClientePedidoDetalheView.as_view(), name="clientepedidodetalhe"),
+
   path('admin-login/', AdminLoginView.as_view(), name="adminlogin"),
   path('admin-home/', AdminHomeView.as_view(), name="adminhome"),
+  path('admin-pedido/<int:pk>/', AdminPedidoDetalheView.as_view(), name="adminpedidodetalhe"),
+  path('admin-todos-pedidos/', AdminPedidoListaView.as_view(), name="adminpedidolista"),
+  path('admin-pedido-<int:pk>-mudar/', AdminPedidoMudarStatusView.as_view(), name="adminpedidomudar"),
+
+  path('pesquisar/', PesquisarView.as_view(), name="pesquisar"),
 ]
